@@ -1,0 +1,71 @@
+
+npm create vite@latest 
+
+
+npm i --force three @react-three/fiber @react-three/drei
+cd public
+
+--stone rename .gltf .bin
+--edit .gltf 
+
+"buffers": [
+    {
+      "byteLength": 1068732,
+      "uri": "stone.bin"
+    }
+
+npx gltfjsx stone.gltf
+
+
+app.jsx
+
+----------------------------
+import { useState, Suspense } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import Stone from '../public/Stone'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <Canvas>
+        {/* give colors to model */}
+        <ambientLight />
+        {/* give contolls to model */}
+        <OrbitControls enableZoom={false} /> 
+        <Suspense fallback={null}>
+          <Stone />
+
+        </Suspense>
+        {/* give a environment sunset */}
+        {/* <Environment preset = 'sunset' /> */}
+
+
+      </Canvas>
+
+    </>
+  )
+}
+
+export default App
+----------------------------------------------
+
+css
+
+canvas {
+  height: 100vh !important ;
+}
+
+
+
+-------------------------------
+Animated model import to react
+-------------------------------
+
+npm i @tresjs/post-processing
